@@ -16,7 +16,10 @@ abstract class Figure implements IFigure {
 
     public function __construct(Color $color){
         $this->color = $color;
-@@ -23,14 +23,20 @@
+    }
+
+    public function getColor(): Color {
+        return $this->color;
     }
 
     public function getIcon(): string {
@@ -36,5 +39,6 @@ abstract class Figure implements IFigure {
 
     public function canAttack(int $from_row, int $from_col, int $to_row, int $to_col, Board $board): bool {
         return false;
+        return $this->canMove($from_row, $from_col, $to_row, $to_col, $board);
     }
 }
