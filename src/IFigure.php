@@ -12,19 +12,22 @@ interface IFigure {
 
 abstract class Figure implements IFigure {
     private Color $color;
-    protected string $icon;
+    protected array $icon = [];
 
     public function __construct(Color $color){
         $this->color = $color;
-    }
-
-    public function getColor(): Color {
-        return $this->color;
+@@ -23,14 +23,20 @@
     }
 
     public function getIcon(): string {
-        $prefix = $this->color === Color::Black ? 'b' : 'w';
-        return $prefix . $this->icon;
+        switch ($this->color) {
+            case Color::Black: $index = 0; break;
+            case Color::White: $index = 1; break;
+            default: return '';
+        }
+        return array_key_exists($index, $this->icon)
+            ? $this->icon[$index]
+            : '';
     }
 
     public function canMove(int $from_row, int $from_col, int $to_row, int $to_col, Board $board): bool {
